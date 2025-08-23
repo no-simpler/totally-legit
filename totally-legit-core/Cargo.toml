@@ -1,0 +1,6 @@
+[package]
+name = "totally-legit-core"
+version = "0.1.0"
+
+[lib]
+name = "totally_legit_core"

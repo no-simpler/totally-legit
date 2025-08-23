@@ -1,0 +1,6 @@
+[package]
+name = "totally-legit"
+version = "0.1.0"
+
+[lib]
+name = "totally_legit"
