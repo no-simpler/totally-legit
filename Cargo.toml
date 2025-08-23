@@ -1,3 +1,9 @@
 [workspace]
-members = ["totally-legit", "totally-legit-core", "totally-legit-util"]
+members = [
+    "totally-legit",
+    "totally-legit-core",
+    "totally-legit-util",
+    "totally-legit-macros",
+    "totally-legit-alternative",
+]
 resolver = "3"

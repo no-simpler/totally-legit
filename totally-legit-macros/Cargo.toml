@@ -1,0 +1,7 @@
+[package]
+name = "totally-legit-macros"
+version = "0.0.1"
+edition = "2024"
+
+[lib]
+name = "totally_legit_macros"
