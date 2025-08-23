@@ -1,9 +1,9 @@
 [workspace]
 members = [
-    "totally-legit",
-    "totally-legit-core",
-    "totally-legit-util",
-    "totally-legit-macros",
-    "totally-legit-alternative",
+    "totally_legit",
+    "totally_legit_core",
+    "totally_legit_util",
+    "totally_legit_macros",
+    "totally_legit_alternative",
 ]
 resolver = "3"
