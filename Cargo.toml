@@ -1,0 +1,3 @@
+[workspace]
+members = ["totally-legit", "totally-legit-core", "totally-legit-util"]
+resolver = "3"
