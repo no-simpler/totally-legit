@@ -1,10 +1,12 @@
 [package]
 name = "totally-legit-core"
 version = "0.0.1"
+license = "MIT"
+description = "totally-legit-core"
 edition = "2024"
 
 [lib]
 name = "totally_legit_core"
 
 [dependencies]
-totally-legit-macros = { path = "../totally_legit_macros" }
+totally-legit-macros = { path = "../totally_legit_macros", version = "0.0.1" }

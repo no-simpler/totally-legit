@@ -1,6 +1,8 @@
 [package]
 name = "totally-legit-alternative"
 version = "0.0.1"
+license = "MIT"
+description = "totally-legit-alternative"
 edition = "2024"
 
 [lib]
