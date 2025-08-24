@@ -9,5 +9,5 @@ edition = "2024"
 name = "totally_legit"
 
 [dependencies]
-totally-legit-core = { path = "../totally_legit_core" }
-totally-legit-util = { path = "../totally_legit_util" }
+totally-legit-core = { path = "../totally_legit_core", version = "0.0.1" }
+totally-legit-util = { path = "../totally_legit_util", version = "0.0.1" }

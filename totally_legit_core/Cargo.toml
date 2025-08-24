@@ -9,4 +9,4 @@ edition = "2024"
 name = "totally_legit_core"
 
 [dependencies]
-totally-legit-macros = { path = "../totally_legit_macros" }
+totally-legit-macros = { path = "../totally_legit_macros", version = "0.0.1" }
