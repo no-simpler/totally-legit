@@ -25,8 +25,23 @@ body = """
 
 {#- Store the list of commits that will be rendered in a variable #}
 {%- set rendered_commits = commits
-| filter(attribute="merge_commit", value=false)
-| unique(attribute="message") %}
+    | filter(attribute="merge_commit", value=false)
+    | unique(attribute="message")
+%}
+
+{#- Collect all links from all commits into a single list #}
+{%- set issue_links = [] %}
+{%- for commit in rendered_commits %}
+    {%- if commit.links %}
+        {%- set_global issue_links = issue_links | concat(with=commit.links) %}
+    {%- endif %}
+{%- endfor %}
+
+{#- Now that we have a flat list, remove duplicates and sort it #}
+{%- set issue_links = issue_links
+    | unique(attribute="href")
+    | sort(attribute="text")
+%}
 
 {#- Print out the version #}
 {%- if version %}
@@ -39,8 +54,9 @@ body = """
 {%- for group, commits in rendered_commits | group_by(attribute="group") %}
     ### {{ group | striptags | trim | upper_first }}
     {% for commit in commits
-    | filter(attribute="scope")
-    | sort(attribute="scope") %}
+        | filter(attribute="scope")
+        | sort(attribute="scope")
+    %}
         {{ self::print_commit(commit=commit) }}
     {%- endfor %}
 
@@ -56,7 +72,16 @@ body = """
 {#- Add a blank line for spacing before the link definitions #}
 {%- raw %}\n{% endraw %}
 
-{#- Loop through the rendered commits again to create the link reference table at the bottom #}
+{#- Create the issue link reference table #}
+{%- if issue_links %}
+    {%- for link in issue_links %}
+        [{{ link.text }}]: {{ link.href }}
+    {%- endfor %}
+{%- endif %}
+
+{%- raw %}\n{% endraw %}
+
+{#- Create the commit link reference table #}
 {%- for commit in rendered_commits %}
     [{{ commit.id | truncate(length=7, end="") }}]: {{ self::remote_url() }}/commit/{{ commit.id }}
 {%- endfor %}
@@ -66,6 +91,16 @@ body = """
 
 [git]
 protect_breaking_commits = true
+
+commit_preprocessors = [
+    # Replace #123 with [#123] in the commit message
+    { pattern = '#(\d+)', replace = '[#$1]' },
+]
+
+link_parsers = [
+    # Extract #123 and turn it into a GitHub issue link object
+    { pattern = '#(\d+)', text = '#$1', href = 'https://github.com/no-simpler/totally-legit/issues/$1' },
+]
 
 commit_parsers = [
     { message = "^feat", group = "<!-- 0 -->Features ⛰️" },
