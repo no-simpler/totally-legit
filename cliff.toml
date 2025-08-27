@@ -18,16 +18,15 @@ body = """
 
 {#- Helper: print single commit #}
 {%- macro print_commit(commit) %}
-    {%- set pr_number = commit.remote.pr_number %}
     {%- set msg = commit.message | upper_first %}
-    {%- if pr_number %}
-        {%- set suffix = ' ([#' ~ pr_number ~ '])' %}
+    {%- if commit.remote.pr_number %}
+        {%- set suffix = ' ([#' ~ commit.remote.pr_number ~ '])' %}
         {%- set msg = msg | trim_end_matches(pat=suffix) %}
     {%- endif -%}
     - {% if commit.scope %}`{{ commit.scope }}`: {% endif %}
       {%- if commit.breaking %}[**breaking**] {% endif %}
       {{- msg }}
-      {%- if pr_number %} ([#{{ pr_number }}]){% endif %}
+      {%- if commit.remote.pr_number %} ([#{{ commit.remote.pr_number }}]){% endif %}
       {%- if commit.id %} ([{{ commit.id | truncate(length=7, end="") }}]){% endif %}
 {%- endmacro %}
 
@@ -60,12 +59,13 @@ body = """
 {#- Print out the version #}
 {%- if version %}
     ## [{{ version | split(pat="-") | last | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else %}
+{%- else %}
     ## [Unreleased]
-{% endif %}
+{%- endif %}
 
 {#- Loop through commits by group and print them #}
 {%- for group, commits in rendered_commits | group_by(attribute="group") %}
+    {%- raw %}\n{% endraw %}
     ### {{ group | striptags | trim | upper_first }}
     {% for commit in commits
         | filter(attribute="scope")
