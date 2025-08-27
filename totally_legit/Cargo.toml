@@ -1,6 +1,6 @@
 [package]
 name = "totally-legit"
-version = "0.0.1"
+version = "1.0.0"
 license = "MIT"
 description = "totally-legit"
 edition = "2024"
@@ -9,5 +9,5 @@ edition = "2024"
 name = "totally_legit"
 
 [dependencies]
-totally-legit-core = { path = "../totally_legit_core", version = "0.0.1" }
-totally-legit-util = { path = "../totally_legit_util", version = "0.0.1" }
+totally-legit-core = { path = "../totally_legit_core", version = "1.0.0" }
+totally-legit-util = { path = "../totally_legit_util", version = "1.0.0" }
