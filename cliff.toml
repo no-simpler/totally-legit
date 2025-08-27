@@ -139,6 +139,8 @@ link_parsers = [
 ]
 
 commit_parsers = [
+    { footer = "^Changelog: ?ignore", skip = true },
+
     { message = "^feat", group = "<!-- 0 -->Features ⛰️" },
     { message = "^fix", group = "<!-- 1 -->Bug Fixes 🐛" },
 
