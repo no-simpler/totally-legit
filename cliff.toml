@@ -30,7 +30,36 @@ body = """
       {%- if commit.id %} ([{{ commit.id | truncate(length=7, end="") }}]){% endif %}
 {%- endmacro %}
 
-{#- Store the list of commits that will be rendered in a variable #}
+{#- Extract short version from tag #}
+{%- if version %}
+    {%- set short_version = version | split(pat="-") | last | trim_start_matches(pat="v") %}
+{%- else %}
+    {%- set short_version = "Unreleased" %}
+{%- endif %}
+
+{#- Compose version URL #}
+{%- set version_url = "" %}
+{%- set base_url = "https://github.com/" ~ remote.github.owner ~ "/" ~ remote.github.repo %}
+{%- if previous.version %}
+    {%- if version %}
+        {%- set version_url = base_url ~ "/compare/" ~ previous.version ~ ".." ~ version %}
+    {%- else %}
+        {%- set version_url = base_url ~ "/compare/" ~ previous.version ~ "..HEAD" %}
+    {%- endif %}
+{%- else %}
+    {%- if version %}
+        {%- set version_url = base_url ~ "/releases/tag/" ~ version %}
+    {%- endif %}
+{%- endif %}
+
+{#- Compose version heading #}
+{%- if version_url %}
+    {%- set version_heading = "[" ~ short_version ~ "](" ~ version_url ~ ")" %}
+{%- else %}
+    {%- set version_heading = short_version %}
+{%- endif %}
+
+{#- Store the list of commits to render #}
 {%- set rendered_commits = commits
     | filter(attribute="merge_commit", value=false)
     | unique(attribute="message")
@@ -57,22 +86,8 @@ body = """
 {#- Now that we have a flat list, remove duplicates and sort it #}
 {%- set issue_nums = issue_nums | sort | unique %}
 
-{#- Print out the version #}
-{%- if version %}
-    ## [{{ version | split(pat="-") | last | trim_start_matches(pat="v") }}]
-    {%- if version %}
-        {%- if previous.version -%}
-            ({{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }})
-        {%- endif %}
-    {%- else %}
-        {%- if previous.version %}
-            ({{ self::remote_url() }}/compare/{{ previous.version }}..HEAD)
-        {%- endif %}
-    {%- endif %}
-    {%- raw %} - {% endraw %}{{ timestamp | date(format="%Y-%m-%d") }}
-{%- else %}
-    ## [Unreleased]
-{%- endif %}
+{#- Print out the version heading #}
+## {{ version_heading }}{% if version %} - {{ timestamp | date(format="%Y-%m-%d") }}{%- endif %}
 
 {#- Loop through commits by group and print them #}
 {%- for group, commits in rendered_commits | group_by(attribute="group") %}
