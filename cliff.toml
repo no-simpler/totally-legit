@@ -42,20 +42,21 @@ body = """
 {%- for commit in rendered_commits %}
     {%- if commit.links %}
         {%- for link in commit.links %}
-            {%- set_global issue_nums = issue_nums | concat(with=link.text) %}
+            {%- set issue_num = link.text | int %}
+            {%- set_global issue_nums = issue_nums | concat(with=issue_num) %}
         {%- endfor %}
     {%- endif %}
 {%- endfor %}
 {#- Collect all links from all commits into a single list #}
 {%- for commit in rendered_commits %}
     {%- if commit.remote.pr_number %}
-        {%- set pr_num = '' ~ commit.remote.pr_number %}
+        {%- set pr_num = commit.remote.pr_number | int %}
         {%- set_global issue_nums = issue_nums | concat(with=pr_num) %}
     {%- endif %}
 {%- endfor %}
 
 {#- Now that we have a flat list, remove duplicates and sort it #}
-{%- set issue_nums = issue_nums | unique | sort %}
+{%- set issue_nums = issue_nums | sort | unique %}
 
 {#- Print out the version #}
 {%- if version -%}
