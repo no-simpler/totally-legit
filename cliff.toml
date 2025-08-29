@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 """
 
 body = """
@@ -57,10 +58,19 @@ body = """
 {%- set issue_nums = issue_nums | unique | sort %}
 
 {#- Print out the version #}
-{%- if version %}
+{%- if version -%}
     ## [{{ version | split(pat="-") | last | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
 {%- else %}
     ## [Unreleased]
+{%- endif %}
+{%- if version %}
+    {%- if previous.version %}
+        ({{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }})
+    {%- endif %}
+{%- else %}
+    {%- if previous.version %}
+        ({{ self::remote_url() }}/compare/{{ previous.version }}..HEAD)
+    {%- endif %}
 {%- endif %}
 
 {#- Loop through commits by group and print them #}
@@ -103,25 +113,7 @@ body = """
 {%- raw %}\n{% endraw -%}
 """
 
-footer = """
-{#- Helper: generate GitHub repo URL #}
-{%- macro remote_url() -%}
-    https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
-{%- endmacro %}
-
-{%- for release in releases %}
-    {%- if release.version %}
-        {%- if release.previous.version %}
-            [{{ release.version | split(pat="-") | last | trim_start_matches(pat="v") }}]: \
-                {{ self::remote_url() }}/compare/{{ release.previous.version }}..{{ release.version }}
-        {%- endif %}
-    {%- else %}
-        {%- if release.previous.version %}
-            [unreleased]: {{ self::remote_url() }}/compare/{{ release.previous.version }}..HEAD
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
-"""
+footer = ""
 
 [git]
 protect_breaking_commits = true
