@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 """
 
 body = """
@@ -59,7 +58,7 @@ body = """
 {%- set issue_nums = issue_nums | sort | unique %}
 
 {#- Print out the version #}
-{%- if version -%}
+{%- if version %}
     ## [{{ version | split(pat="-") | last | trim_start_matches(pat="v") }}]
     {%- if version %}
         {%- if previous.version -%}
@@ -93,26 +92,23 @@ body = """
     {%- endfor %}
 {%- endfor %}
 
-{#- Add a blank line for spacing before the link definitions #}
-{%- raw %}\n{% endraw %}
-
 {#- Create the issue link reference table #}
 {%- if issue_nums %}
+    {%- raw %}\n{% endraw %}
     {%- for issue_num in issue_nums %}
         [#{{ issue_num }}]: {{ self::remote_url() }}/issues/{{ issue_num }}
     {%- endfor %}
 {%- endif %}
 
-{%- raw %}\n{% endraw %}
-
 {#- Create the commit link reference table #}
-{%- for commit in rendered_commits %}
-    {%- if commit.id %}
-        [{{ commit.id | truncate(length=7, end="") }}]: {{ self::remote_url() }}/commit/{{ commit.id }}
-    {%- endif %}
-{%- endfor %}
-
-{%- raw %}\n{% endraw -%}
+{%- if rendered_commits %}
+    {%- raw %}\n{% endraw %}
+    {%- for commit in rendered_commits %}
+        {%- if commit.id %}
+            [{{ commit.id | truncate(length=7, end="") }}]: {{ self::remote_url() }}/commit/{{ commit.id }}
+        {%- endif %}
+    {%- endfor %}
+{%- endif -%}
 """
 
 footer = ""
