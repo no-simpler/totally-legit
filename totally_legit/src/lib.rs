@@ -9,3 +9,7 @@ pub fn sub(a: usize, b: usize) -> usize {
 pub fn div(a: usize, b: usize) -> usize {
     a / b
 }
+
+pub fn mul(a: usize, b: usize) -> usize {
+    a * b
+}
