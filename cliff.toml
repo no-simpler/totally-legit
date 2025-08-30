@@ -107,6 +107,11 @@ body = """
     {%- endfor %}
 {%- endfor %}
 
+{%- if not rendered_commits %}
+    {%- raw %}\n{% endraw %}
+    _No changes logged for this version._
+{%- endif %}
+
 {#- Create the issue link reference table #}
 {%- if issue_nums %}
     {%- raw %}\n{% endraw %}
@@ -123,10 +128,10 @@ body = """
             [{{ commit.id | truncate(length=7, end="") }}]: {{ self::remote_url() }}/commit/{{ commit.id }}
         {%- endif %}
     {%- endfor %}
-{%- endif -%}
-"""
+{%- endif %}
 
-footer = ""
+{%- raw %}\n{% endraw %}
+"""
 
 [git]
 protect_breaking_commits = true
