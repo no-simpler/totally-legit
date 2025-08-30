@@ -1,7 +1,7 @@
-pub fn add(a: i32, b: i32) -> i32 {
+pub fn add(a: usize, b: usize) -> usize {
     a + b
 }
 
-pub fn sub(a: i32, b: i32) -> i32 {
+pub fn sub(a: usize, b: usize) -> usize {
     a - b
 }
