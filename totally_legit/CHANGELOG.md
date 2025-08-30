@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2](https://github.com/no-simpler/totally-legit/compare/totally-legit-0.0.1..totally-legit-0.0.2) - 2025-08-30
+
+### Features ⛰️
+
+- [**breaking**] Take usize instead of i32 ([#18]) ([b9a4cc7])
+- Add div function ([#19]) ([34ec07f])
+- Add mul function ([#20]) ([61d7bcf])
+
+[#18]: https://github.com/no-simpler/totally-legit/issues/18
+[#19]: https://github.com/no-simpler/totally-legit/issues/19
+[#20]: https://github.com/no-simpler/totally-legit/issues/20
+
+[b9a4cc7]: https://github.com/no-simpler/totally-legit/commit/b9a4cc7d5d21e527d3215c259ec7f1d4ead52884
+[34ec07f]: https://github.com/no-simpler/totally-legit/commit/34ec07fc339d7c109ec0c014adec1be09d76f2df
+[61d7bcf]: https://github.com/no-simpler/totally-legit/commit/61d7bcfe525d33feb1600067570d2ff70ed07f07
+
 ## [0.0.1](https://github.com/no-simpler/totally-legit/releases/tag/totally-legit-0.0.1) - 2025-08-30
 
 ### Features ⛰️

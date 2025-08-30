@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2](https://github.com/no-simpler/totally-legit/compare/totally-legit-alternative-0.0.1..totally-legit-alternative-0.0.2) - 2025-08-30
+
+### Features ⛰️
+
+- Add div function ([#19]) ([34ec07f])
+
+[#19]: https://github.com/no-simpler/totally-legit/issues/19
+
+[34ec07f]: https://github.com/no-simpler/totally-legit/commit/34ec07fc339d7c109ec0c014adec1be09d76f2df
+
 ## [0.0.1](https://github.com/no-simpler/totally-legit/releases/tag/totally-legit-alternative-0.0.1) - 2025-08-30
 
 ### Features ⛰️
